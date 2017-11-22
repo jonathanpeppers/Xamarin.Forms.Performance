@@ -15,9 +15,13 @@ namespace xfperf.Droid
 
 			base.OnCreate(bundle);
 
+			Profiler.Start("Forms.Init");
 			global::Xamarin.Forms.Forms.Init(this, bundle);
+			Profiler.Stop("Forms.Init");
 
+			Profiler.Start("LoadApplication");
 			LoadApplication(new App());
+			Profiler.Stop("LoadApplication");
 		}
 
 		protected override void OnResume()
