@@ -2,6 +2,7 @@
 Repo for testing performance in Xamarin.Forms on Android
 
 Current Times from `Application.OnCreate` to `MainActivity.OnResume`:
+
 | Device  | Configuration | Linker Setting | Time |
 | ------- | ------- | -------- | ---------------- |
 | Pixel 2 | Release | Link All | 00:00:00.4532682 |
