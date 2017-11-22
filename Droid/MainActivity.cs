@@ -1,12 +1,7 @@
-﻿using System;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using xfperf.Services;
 
 namespace xfperf.Droid
 {
@@ -25,9 +20,11 @@ namespace xfperf.Droid
 			LoadApplication(new App());
 		}
 
-		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		protected override void OnResume()
 		{
-			base.OnActivityResult(requestCode, resultCode, data);
+			base.OnResume();
+
+			Profiler.Stop("OnResume");
 		}
 	}
 }
