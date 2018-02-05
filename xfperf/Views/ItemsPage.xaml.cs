@@ -8,38 +8,34 @@ namespace xfperf
 {
 	public partial class ItemsPage : ContentPage
 	{
-		ItemsViewModel viewModel;
-
 		public ItemsPage()
 		{
 			InitializeComponent();
 
-			BindingContext = viewModel = new ItemsViewModel();
-		}
+            var grid = new Grid();
+            grid.RowSpacing = 0;
+            grid.ColumnSpacing = 0;
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-		async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-		{
-			var item = args.SelectedItem as Item;
-			if (item == null)
-				return;
+            for (int i = 0; i < 100; i++)
+            {
+                grid.RowDefinitions.Add(new RowDefinition { Height = 50 });
 
-			await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-
-			// Manually deselect item
-			ItemsListView.SelectedItem = null;
-		}
-
-		async void AddItem_Clicked(object sender, EventArgs e)
-		{
-			await Navigation.PushAsync(new NewItemPage());
-		}
-
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
-
-			if (viewModel.Items.Count == 0)
-				viewModel.LoadItemsCommand.Execute(null);
+                for (int j = 0; j < 4; j++)
+                {
+                    var image = new Image
+                    {
+                        Source = ImageSource.FromFile($"patch{((j + i) % 4) + 1}")
+                    };
+                    Grid.SetRow(image, i);
+                    Grid.SetColumn(image, j);
+                    grid.Children.Add(image);
+                }
+            }
+            _scroll.Content = grid;
 		}
 	}
 }
